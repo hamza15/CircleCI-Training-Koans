@@ -13,5 +13,5 @@ jobs:
           environment:
             DOCKERIZE_VERSION: v0.3.0
       - run:
-          name: Wait for db # If no database is found in 1 minute the job will fail.
+          name: # If no database is found in 1 minute the job will fail.
           command: dockerize -wait tcp://localhost:5432 -timeout 1m

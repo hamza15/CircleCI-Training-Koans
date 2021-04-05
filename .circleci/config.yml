@@ -1,23 +1,22 @@
 version: 2
 jobs:
-  build:
-    docker: 
+  test:
+    docker:
       - image: circleci/node
     steps:
       - checkout
+      # These two tests should run in parallel. Make it so!
       - run:
-          name: "run statements can actually contain a 'name' and 'command' argument as well"
-          command: | 
-            echo "You can even have multiline commands."
-      - restore_cache:
-          keys:
-          - v1-dependencies-
-      - run: 
-          name: "create directory"
-          command: mkdir ~/cache/
-      - run: 
-          name: "echo"
-          command: echo "testfile" > ~/cache/log.txt
-      - save_cache:
-          key: v1-dependencies-
-          paths: ~/cache
+          name: Run Hello test
+          command: |
+            bash src/test_hello.sh
+      - run:
+          name: Run Goodbye test
+          command: |
+            bash src/test_goodbye.sh
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test

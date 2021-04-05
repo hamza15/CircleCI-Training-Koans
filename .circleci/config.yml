@@ -6,19 +6,19 @@ jobs:
     steps:
       - checkout
       - run:
-        name: "run statements can actually contain a 'name' and 'command' argument as well"
-        command: | 
-          echo "You can even have multiline commands."
+          name: "run statements can actually contain a 'name' and 'command' argument as well"
+          command: | 
+            echo "You can even have multiline commands."
       - restore_cache:
           keys:
           - v1-dependencies-
       - run: 
-        name: "create directory"
-        command: |
+          name: "create directory"
+          command: |
           mkdir ~/cache/
       - run: 
-        name: "echo"
-        command: |
+          name: "echo"
+          command: |
           echo "testfile" > ~/cache/log.txt
       - save_cache:
           key: v1-dependencies-

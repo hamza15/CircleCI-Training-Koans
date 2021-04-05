@@ -14,12 +14,10 @@ jobs:
           - v1-dependencies-
       - run: 
           name: "create directory"
-          command: |
-          mkdir ~/cache/
+          command: mkdir ~/cache/
       - run: 
           name: "echo"
-          command: |
-          echo "testfile" > ~/cache/log.txt
+          command: echo "testfile" > ~/cache/log.txt
       - save_cache:
           key: v1-dependencies-
           paths: ~/cache

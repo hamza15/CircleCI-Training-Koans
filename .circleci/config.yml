@@ -10,3 +10,8 @@ jobs:
           name: Generating test results.
           data-dir: ~/project/results
           upload: true
+
+workflows:
+  your-workflow:
+    jobs:
+      - build

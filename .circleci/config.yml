@@ -16,9 +16,9 @@ jobs:
           command: yarn install --immutable
       - save_cache:
           name: Save Yarn Package Json Cache
-          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
       
 
 workflows:

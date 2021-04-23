@@ -1,4 +1,5 @@
 version: 2.1
+#test no deploy
 
 jobs:
   build:
@@ -31,3 +32,8 @@ workflows:
       - deploy:
           requires:
             - test
+          filters:
+            tags:
+              only: /^beta.*/
+            branches:
+              ignore: /.*/

@@ -41,7 +41,7 @@ workflows:
           requires:
             - build
       - deploy
-          requires::
+          requires:
             - test-node
             - test-node-6
             - test-node-8

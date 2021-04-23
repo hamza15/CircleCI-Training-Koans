@@ -1,38 +1,39 @@
 version: 2.1
-
-executors:
-  linux:
-    docker:
-      - image: cimg/base:2020.01
-  macos:
-    macos:
-      xcode: 11.4
-
-orbs:
-  node: circleci/node@2.0.0
+#test no deploy
 
 jobs:
-  test:
-    parameters:
-      os:
-        type: executor
-      node-version:
-        type: string
-    executor: << parameters.os >>
+  build:
+    docker:
+      - image: circleci/node
     steps:
       - checkout
-      - node/install:
-          node-version: << parameters.node-version >>
-          install-yarn: true
-      - run:
-          command: echo "running matrix job for << parameters.os >> << parameters.node-version >>"
+      - run: echo "Building complete"
+  test:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - run: echo "Testing complete"
+  deploy:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - run: echo "Deploy complete"
 
 workflows:
-  all-tests:
+  version: 2
+  build-test-and-deploy:
     jobs:
+      - build
       - test:
-          matrix:
-            # Add below this line to setup matrix build
-            parameters:
-              os: [linux, macos]
-              node-version: ["10.9.0", "11.9.0", "12.9.1", "13.9.0"]
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^beta.*/
+            branches:
+              ignore: /.*/
